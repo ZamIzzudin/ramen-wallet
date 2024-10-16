@@ -1,38 +1,90 @@
-.App {
-  text-align: center;
+/** @format */
+.container {
+  background-color: var(--primary-color);
+  width: 350px;
+  max-width: 350px;
+  min-height: 600px;
+  max-height: 600px;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.login {
+  height: 500px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+
+button {
+  background-color: var(--fourth-color);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input {
+  border: none;
+  border-bottom: 2px solid var(--fourth-color);
+  background-color: transparent;
+  padding: 10px;
+  color: white;
+  transition: 0.5s;
+  width: 65%;
+}
+
+input:focus-visible {
+  border-radius: 5px;
+  background-color: var(--secondary-color);
+  outline: none;
+}
+
+.register-button {
+  background-color: transparent !important;
+  height: 150px;
+  width: 150px;
+  padding: 0;
+  margin: 0;
+  border-radius: 100px;
+  border: 3px solid var(--fourth-color);
+  color: var(--fourth-color);
+  transition: 0.5s;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.register-button:hover {
+  font-size: 1.8em;
+  height: 200px;
+  width: 200px;
+}
+
+.generate-wallet-container {
+  height: 400px;
+  width: 250px;
+}
+
+.seed-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 50px;
+  gap: 10px;
+  align-items: space-around;
+  justify-content: center;
+}
+
+.seed-container span {
+  background-color: var(--third-color);
+  padding: 5px 0;
+  border-radius: 5%;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  width: 75px;
+  font-size: 0.8em;
 }

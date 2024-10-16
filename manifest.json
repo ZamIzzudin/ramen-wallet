@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Create React App Sample",
+  "version": "1.0",
+  "description": "Deskripsi singkat tentang extension Anda",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "favicon.ico"
+  }
+}

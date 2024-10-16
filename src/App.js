@@ -1,23 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+/** @format */
+import { useState, useEffect } from "react";
+import { DEFAULT_INDEXED } from "./config";
+import indexedDB from "./utility/indexedDB";
+
+import Menu from "./component/Menu";
+import Login from "./component/Login";
+import Navbar from "./component/Navbar";
+import "./App.css";
 
 function App() {
+  const [config, setConfig] = useState({});
+
+  useEffect(() => {
+    indexedDB.initDB().then(() => {
+      handleFetch();
+    });
+  }, []);
+
+  function handleLogout() {
+    indexedDB.removeData();
+    handleFetch();
+  }
+
+  async function handleFetch() {
+    const data = await indexedDB.getData();
+    if (!data) {
+      indexedDB.addData(null);
+      setConfig(DEFAULT_INDEXED);
+    } else {
+      setConfig(data);
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container centered-start">
+      <Navbar config={config} handleLogout={handleLogout} />
+      {config?.is_login ? (
+        <Menu config={config} />
+      ) : (
+        <Login handleFetch={handleFetch} />
+      )}
     </div>
   );
 }
