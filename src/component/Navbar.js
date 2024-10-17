@@ -2,11 +2,15 @@
 
 import githubIcon from "../assets/githubicon.svg";
 
-export default function Navbar({ config, handleLogout }) {
-  if (config.is_login) {
+import useStore from "../utility/store";
+
+export default function Navbar({ handleLogout }) {
+  const { details, network } = useStore();
+
+  if (details.address) {
     return (
       <div className="navbar">
-        <span>{config.type}</span>
+        <span>{network[0]?.name}</span>
         <button type="button" onClick={() => handleLogout()}>
           Logout
         </button>
@@ -16,7 +20,7 @@ export default function Navbar({ config, handleLogout }) {
 
   return (
     <div className="navbar">
-      <span>Ramen</span>
+      <p className="bold">Ramen</p>
       <img src={githubIcon} alt="github icon" height={25} />
     </div>
   );

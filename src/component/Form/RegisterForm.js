@@ -3,8 +3,12 @@
 import { useState } from "react";
 
 import wallet from "../../utility/wallet";
+import useStore from "../../utility/store";
+
+import bat from "../../assets/bat.gif";
 
 export default function RegisterForm({ handleFetch, handleType }) {
+  const { setSavedStatus, updateDetails } = useStore();
   const [generateResponse, setGenerateResponse] = useState(null);
   const [passwordForm, setPasswordForm] = useState({
     password: null,
@@ -21,9 +25,20 @@ export default function RegisterForm({ handleFetch, handleType }) {
       alert("Password not match");
       return;
     }
+    updateDetails({
+      wallet: generateResponse.wallet,
+      address: generateResponse.public_key,
+    });
 
     wallet.saveWallet(generateResponse.wallet, passwordForm.password);
+
+    setSavedStatus(true);
+
     handleFetch();
+  }
+
+  function copy2Clipboard() {
+    navigator.clipboard.writeText(generateResponse.seed_phrase);
   }
 
   return (
@@ -32,10 +47,11 @@ export default function RegisterForm({ handleFetch, handleType }) {
         <div className="centered">
           <h5 className="bold">Your Seed Phrase</h5>
           <span>Keep this as a secret, dont let anyone know</span>
-          <div className="seed-container mt-1">
+          <div className="seed-container mt-1" onClick={() => copy2Clipboard()}>
             {generateResponse.seed_phrase.split(" ").map((each) => (
               <span>{each}</span>
             ))}
+            <p className="seed-container-tooltip">Copy to Clipboard</p>
           </div>
           <form className="centered w-full mt-1">
             <input
@@ -73,9 +89,12 @@ export default function RegisterForm({ handleFetch, handleType }) {
         </div>
       ) : (
         <div className="centered generate-wallet-container">
+          <img src={bat} alt="ramen mascot" height={150} />
+          <h1 className="bold">Get Started</h1>
+          <h5>Start your first day in Ramen</h5>
           <button
             onClick={() => handleGenerateWallet()}
-            className="register-button"
+            className="register-button mt-5"
           >
             Generate Wallet
           </button>
@@ -84,8 +103,8 @@ export default function RegisterForm({ handleFetch, handleType }) {
 
       <div className="mt-4 mb-3">
         <p>
-          <strong onClick={() => handleType("login")}>Connect</strong> or{" "}
-          <strong onClick={() => handleType("import")}>Import</strong>
+          <strong onClick={() => handleType("import")}>Import</strong> an
+          existing Ramen wallet.
         </p>
       </div>
     </>

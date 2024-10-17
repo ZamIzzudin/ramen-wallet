@@ -1,8 +1,14 @@
 /** @format */
 import { useState } from "react";
+
 import wallet from "../../utility/wallet";
+import useStore from "../../utility/store";
+
+import bat from "../../assets/bat.gif";
 
 export default function ImportForm({ handleFetch, handleType }) {
+  const { setSavedStatus, updateDetails } = useStore();
+
   const [importForm, setImportForm] = useState({
     seed_phrase: null,
     password: null,
@@ -16,9 +22,13 @@ export default function ImportForm({ handleFetch, handleType }) {
     }
     const { seed_phrase, password } = importForm;
 
-    const loadedWallet = await wallet.importWallet(seed_phrase);
+    const response = await wallet.importWallet(seed_phrase);
 
-    wallet.saveWallet(loadedWallet.wallet, password);
+    updateDetails({ wallet: response.wallet, address: response.public_key });
+
+    wallet.saveWallet(response.wallet, password);
+
+    setSavedStatus(true);
 
     handleFetch();
   }
@@ -26,6 +36,7 @@ export default function ImportForm({ handleFetch, handleType }) {
   return (
     <>
       <div className="centered">
+        <img src={bat} alt="ramen mascot" height={100} />
         <h1 className="bold">Import Wallet</h1>
         <h5>Lets Connect to Your Existing Wallet</h5>
       </div>
@@ -74,8 +85,8 @@ export default function ImportForm({ handleFetch, handleType }) {
 
       <div className="mt-4 mb-3">
         <p>
-          <strong onClick={() => handleType("login")}>Connect</strong> or{" "}
-          <strong onClick={() => handleType("register")}>Register</strong>
+          <strong onClick={() => handleType("register")}>Generate</strong> a new
+          Ramen wallet.
         </p>
       </div>
     </>

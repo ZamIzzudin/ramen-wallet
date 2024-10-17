@@ -45,41 +45,50 @@ input:focus-visible {
 }
 
 .register-button {
-  background-color: transparent !important;
-  height: 150px;
-  width: 150px;
-  padding: 0;
-  margin: 0;
-  border-radius: 100px;
+  padding: 20px 0;
+  border-radius: 10px;
   border: 3px solid var(--fourth-color);
-  color: var(--fourth-color);
   transition: 0.5s;
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-.register-button:hover {
-  font-size: 1.8em;
-  height: 200px;
-  width: 200px;
+  font-size: 1em;
+  min-width: 100%;
 }
 
 .generate-wallet-container {
   height: 400px;
   width: 250px;
+  gap: 10px;
 }
 
 .seed-container {
+  cursor: copy;
   display: flex;
   flex-wrap: wrap;
   padding: 0 50px;
   gap: 10px;
   align-items: space-around;
   justify-content: center;
+  position: relative;
+}
+.seed-container-tooltip {
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: -10%;
+  padding: 10px;
+  width: 250px;
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.seed-container:hover .seed-container-tooltip {
+  opacity: 1;
 }
 
 .seed-container span {
-  background-color: var(--third-color);
+  background-color: var(--secondary-color);
   padding: 5px 0;
   border-radius: 5%;
   display: flex;

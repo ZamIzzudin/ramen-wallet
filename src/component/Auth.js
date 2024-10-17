@@ -2,21 +2,27 @@
 import { useState } from "react";
 
 import ImportForm from "./Form/ImportForm";
-
 import RegisterForm from "./Form/RegisterForm";
 import LoginForm from "./Form/LoginForm";
+import useStore from "../utility/store";
 
-export default function Login({ handleFetch }) {
-  const [formLayout, setFormLayout] = useState("login");
-
+export default function Auth({ handleFetch, handleLogout }) {
+  const { is_saved } = useStore();
+  const [formLayout, setFormLayout] = useState("register");
   function renderForm() {
-    if (formLayout === "login") {
-      return <LoginForm handleFetch={handleFetch} handleType={setFormLayout} />;
-    } else if (formLayout === "register") {
+    if (is_saved) {
+      return (
+        <LoginForm handleFetch={handleFetch} handleLogout={handleLogout} />
+      );
+    }
+
+    if (formLayout === "register") {
       return (
         <RegisterForm handleFetch={handleFetch} handleType={setFormLayout} />
       );
-    } else if (formLayout === "import") {
+    }
+
+    if (formLayout === "import") {
       return (
         <ImportForm handleFetch={handleFetch} handleType={setFormLayout} />
       );

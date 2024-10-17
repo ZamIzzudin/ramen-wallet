@@ -54,7 +54,7 @@ export default (() => {
     const encrypted = encrypt(key, password);
 
     try {
-      indexedDB.editData({ token: encrypted, is_login: true });
+      indexedDB.editData({ token: encrypted });
       return true;
     } catch (error) {
       console.error(error);
@@ -66,9 +66,11 @@ export default (() => {
     const data = await indexedDB.getData();
     if (data.token) {
       const key = decrypt(data.token, password);
-      indexedDB.editData({ is_login: true });
 
-      return EC.keyFromPrivate(key);
+      return {
+        wallet: EC.keyFromPrivate(key),
+        public_key: EC.keyFromPrivate(key).getPublic("hex"),
+      };
     } else {
       console.error("Token not Found");
       return false;

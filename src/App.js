@@ -1,15 +1,16 @@
 /** @format */
-import { useState, useEffect } from "react";
-import { DEFAULT_INDEXED } from "./config";
+import { useEffect } from "react";
 import indexedDB from "./utility/indexedDB";
 
+import useStore from "./utility/store";
+
 import Menu from "./component/Menu";
-import Login from "./component/Login";
+import Auth from "./component/Auth";
 import Navbar from "./component/Navbar";
 import "./App.css";
 
 function App() {
-  const [config, setConfig] = useState({});
+  const { setNetwork, setSavedStatus, updateDetails, details } = useStore();
 
   useEffect(() => {
     indexedDB.initDB().then(() => {
@@ -19,6 +20,8 @@ function App() {
 
   function handleLogout() {
     indexedDB.removeData();
+    setSavedStatus(false);
+    updateDetails({ wallet: null, public_key: null, balance: 0 });
     handleFetch();
   }
 
@@ -26,19 +29,25 @@ function App() {
     const data = await indexedDB.getData();
     if (!data) {
       indexedDB.addData(null);
-      setConfig(DEFAULT_INDEXED);
-    } else {
-      setConfig(data);
+      return;
     }
+
+    if (!data.token) {
+      setSavedStatus(false);
+      return;
+    }
+
+    setNetwork(data.network);
+    setSavedStatus(true);
   }
 
   return (
     <div className="container centered-start">
-      <Navbar config={config} handleLogout={handleLogout} />
-      {config?.is_login ? (
-        <Menu config={config} />
+      <Navbar handleLogout={handleLogout} />
+      {details.address ? (
+        <Menu />
       ) : (
-        <Login handleFetch={handleFetch} />
+        <Auth handleFetch={handleFetch} handleLogout={handleLogout} />
       )}
     </div>
   );

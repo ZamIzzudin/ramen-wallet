@@ -9,7 +9,7 @@ export default (() => {
 
   function initDB() {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open("RaManDatabase", 1);
+      const request = indexedDB.open("RamenDatabase", 1);
 
       request.onerror = (event) => {
         console.error("Error membuka database:", event.target.error);

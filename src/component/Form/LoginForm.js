@@ -1,10 +1,12 @@
 /** @format */
 import { useState } from "react";
 import wallet from "../../utility/wallet";
+import useStore from "../../utility/store";
 
 import bat from "../../assets/bat.gif";
 
-export default function LoginForm({ handleFetch, handleType }) {
+export default function LoginForm({ handleFetch, handleLogout }) {
+  const { updateDetails } = useStore();
   const [passwordForm, setPasswordForm] = useState(null);
 
   async function handleLogin() {
@@ -14,16 +16,19 @@ export default function LoginForm({ handleFetch, handleType }) {
     }
 
     const loadedWallet = await wallet.loadWallet(passwordForm);
-    handleFetch();
 
-    console.log(loadedWallet);
+    updateDetails({
+      wallet: loadedWallet.wallet,
+      address: loadedWallet.public_key,
+    });
+    handleFetch();
   }
 
   return (
     <>
       <div className="centered">
         <img src={bat} alt="ra-man mascot" width={150} />
-        <h1 className="bold">Get Started</h1>
+        <h1 className="bold">Welcome Back</h1>
         <h5>Lets Connect to Your Wallet</h5>
       </div>
 
@@ -45,8 +50,8 @@ export default function LoginForm({ handleFetch, handleType }) {
 
       <div className="mt-4 mb-3">
         <p>
-          <strong onClick={() => handleType("import")}>Import</strong> or{" "}
-          <strong onClick={() => handleType("register")}>Register</strong>
+          <strong onClick={() => handleLogout()}>Switch</strong> to another
+          wallet.
         </p>
       </div>
     </>

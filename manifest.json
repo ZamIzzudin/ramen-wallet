@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Create React App Sample",
+  "name": "Ramen Wallet",
   "version": "1.0",
-  "description": "Deskripsi singkat tentang extension Anda",
+  "description": "Wallet Extension for Ramen Network",
   "permissions": ["storage"],
   "action": {
     "default_popup": "index.html",
