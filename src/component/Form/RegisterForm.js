@@ -5,7 +5,9 @@ import { useState } from "react";
 import wallet from "../../utility/wallet";
 import useStore from "../../utility/store";
 
-import bat from "../../assets/bat.gif";
+import { Tooltip } from "react-tooltip";
+
+import ramen from "../../assets/ramen.gif";
 
 export default function RegisterForm({ handleFetch, handleType }) {
   const { setSavedStatus, updateDetails } = useStore();
@@ -51,7 +53,9 @@ export default function RegisterForm({ handleFetch, handleType }) {
             {generateResponse.seed_phrase.split(" ").map((each) => (
               <span>{each}</span>
             ))}
-            <p className="seed-container-tooltip">Copy to Clipboard</p>
+            <Tooltip anchorSelect=".seed-container" place="top">
+              Click to copy
+            </Tooltip>
           </div>
           <form className="centered w-full mt-1">
             <input
@@ -89,12 +93,12 @@ export default function RegisterForm({ handleFetch, handleType }) {
         </div>
       ) : (
         <div className="centered generate-wallet-container">
-          <img src={bat} alt="ramen mascot" height={150} />
-          <h1 className="bold">Get Started</h1>
+          <img src={ramen} alt="ramen mascot" height={150} />
+          <h1 className="bold mt-1">Get Started</h1>
           <h5>Start your first day in Ramen</h5>
           <button
             onClick={() => handleGenerateWallet()}
-            className="register-button mt-5"
+            className="register-button mt-3"
           >
             Generate Wallet
           </button>

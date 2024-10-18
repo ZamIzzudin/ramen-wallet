@@ -6,15 +6,20 @@
   min-height: 600px;
   max-height: 600px;
   overflow: hidden;
+  overflow-y: auto;
 }
 
 .login {
   height: 500px;
 }
 
+.logo {
+  font-size: 1.5em;
+}
+
 .navbar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 20px 30px;
 }
@@ -35,7 +40,7 @@ input {
   padding: 10px;
   color: white;
   transition: 0.5s;
-  width: 65%;
+  width: 70%;
 }
 
 input:focus-visible {
@@ -69,23 +74,6 @@ input:focus-visible {
   justify-content: center;
   position: relative;
 }
-.seed-container-tooltip {
-  opacity: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: -10%;
-  padding: 10px;
-  width: 250px;
-  height: 145px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-}
-
-.seed-container:hover .seed-container-tooltip {
-  opacity: 1;
-}
 
 .seed-container span {
   background-color: var(--secondary-color);
@@ -96,4 +84,114 @@ input:focus-visible {
   justify-content: center;
   width: 75px;
   font-size: 0.8em;
+}
+
+.drop-down {
+  background-color: var(--secondary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.5s;
+}
+
+.drop-down:hover {
+  background-color: var(--fourth-color);
+}
+
+.dropdown-toogle {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.drop-down-container {
+  background-color: var(--secondary-color);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 110%;
+  left: 0;
+  width: 300%;
+  transition: 0.5s;
+  padding: 5px 0;
+  height: 100px;
+  max-height: fit-content;
+}
+
+.drop-down-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  min-width: max-content;
+}
+
+.drop-down-item:hover {
+  background-color: var(--fourth-color);
+}
+
+.drop-down-hide ~ .drop-down-container {
+  padding: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.wallet-address {
+  cursor: pointer;
+  background-color: var(--secondary-color);
+  padding: 5px 10px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.menu-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.menu-action-item {
+  background-color: var(--third-color);
+  height: 40px;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.25em;
+  transition: 0.3s;
+}
+
+.menu-action-item:hover {
+  background-color: var(--fourth-color);
+}
+
+.transaction-section {
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+}
+
+.transaction-item {
+  width: 100%;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--grey);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.transaction-date {
+  font-size: 0.7em;
+  opacity: 0.5;
+}
+
+.transaction-type {
+  background-color: var(--green);
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1.25em;
 }

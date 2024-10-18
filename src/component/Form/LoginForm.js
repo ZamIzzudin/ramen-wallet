@@ -3,11 +3,11 @@ import { useState } from "react";
 import wallet from "../../utility/wallet";
 import useStore from "../../utility/store";
 
-import bat from "../../assets/bat.gif";
+import ramen from "../../assets/ramen.gif";
 
 export default function LoginForm({ handleFetch, handleLogout }) {
   const { updateDetails } = useStore();
-  const [passwordForm, setPasswordForm] = useState(null);
+  const [passwordForm, setPasswordForm] = useState("");
 
   async function handleLogin() {
     if (!passwordForm) {
@@ -27,12 +27,12 @@ export default function LoginForm({ handleFetch, handleLogout }) {
   return (
     <>
       <div className="centered">
-        <img src={bat} alt="ra-man mascot" width={150} />
-        <h1 className="bold">Welcome Back</h1>
+        <img src={ramen} alt="ra-man mascot" width={150} />
+        <h1 className="bold mt-1">Welcome Back</h1>
         <h5>Lets Connect to Your Wallet</h5>
       </div>
 
-      <form className="centered w-full mt-5">
+      <form className="centered w-full mt-3">
         <input
           name="password"
           type="password"

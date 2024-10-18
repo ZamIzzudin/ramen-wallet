@@ -1,19 +1,30 @@
 /** @format */
 
-import githubIcon from "../assets/githubicon.svg";
+import { Tooltip } from "react-tooltip";
 
+import DropDown from "./DropDown";
 import useStore from "../utility/store";
+import { addressPrettier } from "../utility/parser";
 
-export default function Navbar({ handleLogout }) {
+// import { TbBat } from "react-icons/tb";
+import { MdOutlineRamenDining } from "react-icons/md";
+import { IoIosWallet } from "react-icons/io";
+
+export default function Navbar() {
   const { details, network } = useStore();
 
   if (details.address) {
     return (
       <div className="navbar">
-        <span>{network[0]?.name}</span>
-        <button type="button" onClick={() => handleLogout()}>
-          Logout
-        </button>
+        <DropDown data={network} />
+        <span className="wallet-address">
+          <IoIosWallet />
+          {addressPrettier(details.address)}
+        </span>
+
+        <Tooltip anchorSelect=".wallet-address" place="bottom">
+          Click to copy
+        </Tooltip>
       </div>
     );
   }
@@ -21,7 +32,9 @@ export default function Navbar({ handleLogout }) {
   return (
     <div className="navbar">
       <p className="bold">Ramen</p>
-      <img src={githubIcon} alt="github icon" height={25} />
+      <div className="logo">
+        <MdOutlineRamenDining />
+      </div>
     </div>
   );
 }

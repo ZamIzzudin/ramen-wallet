@@ -4,7 +4,7 @@ import { useState } from "react";
 import wallet from "../../utility/wallet";
 import useStore from "../../utility/store";
 
-import bat from "../../assets/bat.gif";
+import ramen from "../../assets/ramen.gif";
 
 export default function ImportForm({ handleFetch, handleType }) {
   const { setSavedStatus, updateDetails } = useStore();
@@ -36,12 +36,12 @@ export default function ImportForm({ handleFetch, handleType }) {
   return (
     <>
       <div className="centered">
-        <img src={bat} alt="ramen mascot" height={100} />
-        <h1 className="bold">Import Wallet</h1>
+        <img src={ramen} alt="ramen mascot" height={100} />
+        <h1 className="bold mt-1">Import Wallet</h1>
         <h5>Lets Connect to Your Existing Wallet</h5>
       </div>
 
-      <form className="centered w-full mt-5">
+      <form className="centered w-full mt-3">
         <input
           name="seed_phrase"
           type="text"
@@ -77,13 +77,13 @@ export default function ImportForm({ handleFetch, handleType }) {
         />
       </form>
 
-      <div className="w-full centered mt-1">
+      <div className="w-full centered mt-2">
         <button className=" w-70" type="button" onClick={() => handleImport()}>
           Import
         </button>
       </div>
 
-      <div className="mt-4 mb-3">
+      <div className="mt-3 mb-3">
         <p>
           <strong onClick={() => handleType("register")}>Generate</strong> a new
           Ramen wallet.
