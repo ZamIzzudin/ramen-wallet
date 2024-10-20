@@ -13,11 +13,15 @@ import { IoIosWallet } from "react-icons/io";
 export default function Navbar() {
   const { details, network } = useStore();
 
+  function copy2Clipboard() {
+    navigator.clipboard.writeText(details.address);
+  }
+
   if (details.address) {
     return (
       <div className="navbar">
         <DropDown data={network} />
-        <span className="wallet-address">
+        <span className="wallet-address" onClick={() => copy2Clipboard()}>
           <IoIosWallet />
           {addressPrettier(details.address)}
         </span>
