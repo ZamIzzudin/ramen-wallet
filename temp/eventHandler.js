@@ -16,7 +16,6 @@ window.addEventListener("message", (event) => {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "ramen-response") {
-    console.log("Received ramen-response in content script");
     window.postMessage({ type: "ramen-response", data: request.data }, "*");
 
     sendResponse({ received: true });

@@ -26,11 +26,28 @@
 
 button {
   background-color: var(--fourth-color);
-  border: none;
+  border: 2px solid var(--fourth-color);
   color: white;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: transparent;
+  color: var(--fourth-color);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid grey;
+  color: grey;
+}
+
+.btn-secondary:hover {
+  background-color: gray;
+  color: white;
 }
 
 input {
@@ -194,4 +211,36 @@ input:focus-visible {
   padding: 10px;
   border-radius: 5px;
   font-size: 1.25em;
+}
+
+.transaction-form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.transaction-form-type {
+  background-color: skyblue;
+  font-size: 2em;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: var(--green);
+}
+
+.response-transaction-container {
+  min-height: 250px;
+  gap: 40px;
+}
+
+.response-transaction-success,
+.response-transaction-failed {
+  background-color: var(--green);
+  font-size: 3em;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.response-transaction-failed {
+  background-color: var(--red);
 }

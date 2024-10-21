@@ -6,8 +6,8 @@
   --fourth-color: #706fd3;
   --blue: #34ace070;
   --yellow: #ffda7970;
-  --green: #00d42070;
-  --red: #ff525270;
+  --green: #00d42090;
+  --red: #ff525290;
   --grey: #dddddd70;
   --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -139,6 +139,12 @@ span {
 
 .d-flex {
   display: flex;
+}
+
+.space-beetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .gap-10 {

@@ -6,7 +6,7 @@ import BIP32Factory from "bip32";
 import * as bip39 from "bip39";
 
 import indexedDB from "./indexedDB";
-import { encrypt, decrypt } from "./crypto";
+import { encrypt, decrypt, hasherHex } from "./crypto";
 
 window.Buffer = window.Buffer || Buffer;
 
@@ -77,10 +77,16 @@ export default (() => {
     }
   }
 
+  function signTransaction(wallet, payload) {
+    const signature = wallet.sign(hasherHex(JSON.stringify(payload)));
+    return signature.toDER("hex");
+  }
+
   return {
     generateWallet,
     importWallet,
     saveWallet,
     loadWallet,
+    signTransaction,
   };
 })();

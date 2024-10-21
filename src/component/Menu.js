@@ -1,12 +1,12 @@
 /** @format */
 /* global chrome */
 import { useEffect, useState } from "react";
+import Transactions from "./Transactions";
+import TransactionForm from "./Form/Transaction";
 
 import api from "../utility/api";
 import useStore from "../utility/store";
-import { StringFormat } from "../utility/dateFormatter";
 
-import { addressPrettier } from "../utility/parser";
 import {
   RiQrScan2Line,
   RiSendPlaneLine,
@@ -20,17 +20,28 @@ export default function Menu() {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    getTransactions();
-    getBalance();
-
     chrome.storage.local.get("pageData", (result) => {
-      if (result) {
-        console.log(result);
+      if (result.pageData) {
+        updateTransaction({
+          ...result.pageData,
+          date: new Date().toISOString(),
+        });
       } else {
         console.log("No Data");
       }
     });
+    // updateTransaction({
+    //   type: "send",
+    //   to: "ksdjhoiaYE89q93yeuashdjkabdnsbadkqyiuyqiuwehjhdkjyw92yqwuehakjhasdjhiuadghkjashdaj",
+    //   amount: 500,
+    //   date: new Date().toISOString(),
+    // });
   }, []);
+
+  useEffect(() => {
+    getTransactions();
+    getBalance();
+  }, [transaction]);
 
   async function getTransactions() {
     const response = await api.getTransactions(details.address);
@@ -41,32 +52,6 @@ export default function Menu() {
     updateBalance(response);
   }
 
-  function transactionTypeRender(type) {
-    if (type === "send") {
-      return <RiSendPlaneLine />;
-    }
-
-    if (type === "receive") {
-      return <RiQrScan2Line />;
-    }
-
-    if (type === "swap") {
-      return <RiSwap2Line />;
-    }
-
-    if (type === "buy") {
-      return <RiExchangeDollarLine />;
-    }
-  }
-
-  function handleCallback() {
-    console.log("tes");
-    chrome.runtime.sendMessage({
-      type: "ramen-response",
-      data: "Hello World",
-    });
-  }
-
   return (
     <div className="centered mt-2 mb-2">
       <section className="w-full centered">
@@ -75,13 +60,13 @@ export default function Menu() {
       </section>
 
       <section className="menu-action w-full mt-2">
-        <div className="centered" onClick={() => updateTransaction({})}>
+        <div className="centered">
           <span className="menu-action-item centered">
             <RiSendPlaneLine />
           </span>
           <span>Send</span>
         </div>
-        <div className="centered" onClick={() => updateTransaction(null)}>
+        <div className="centered">
           <span className="menu-action-item centered">
             <RiQrScan2Line />
           </span>
@@ -93,7 +78,7 @@ export default function Menu() {
           </span>
           <span>Swap</span>
         </div>
-        <div className="centered" onClick={() => handleCallback()}>
+        <div className="centered">
           <span className="menu-action-item centered">
             <RiExchangeDollarLine />
           </span>
@@ -101,41 +86,7 @@ export default function Menu() {
         </div>
       </section>
 
-      {transaction ? (
-        <div>
-          <span>Transaction Detected</span>
-        </div>
-      ) : (
-        <section className="w-90 centered mt-2 transaction-section py-2 px-2">
-          <div className="centered-left w-full">
-            <h4>Recent Transaction</h4>
-          </div>
-          <div className="transaction-container w-full centered">
-            {transactions.map((item, index) => (
-              <div key={index} className="transaction-item">
-                <div className="d-flex gap-10">
-                  <div>
-                    <span className="transaction-type centered">
-                      {transactionTypeRender(item.type)}
-                    </span>
-                  </div>
-                  <div className="centered-left">
-                    <span className="transaction-address">
-                      {addressPrettier(item.to, 10)}
-                    </span>
-                    <span className="transaction-date">
-                      {StringFormat(item.timestamp.toString())}
-                    </span>
-                  </div>
-                </div>
-                <div className="centered-right">
-                  <h5 className="bold">{item.amount} RMN</h5>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {transaction ? <TransactionForm /> : <Transactions data={transactions} />}
     </div>
   );
 }

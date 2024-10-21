@@ -28,11 +28,50 @@ export default (() => {
     }
   }
 
-  async function initiateTransaction() {}
+  async function initiateTransaction(transaction) {
+    try {
+      const response = await fetch(`${BASE_URL}/bc/add-transaction`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transaction),
+      });
+
+      const data = await response.json();
+
+      return data;
+    } catch (err) {
+      return {
+        status: "failed",
+      };
+    }
+  }
+
+  async function getGasFee(amount) {
+    try {
+      const response = await fetch(`${BASE_URL}/bc/gas-fee`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount }),
+      });
+
+      const data = await response.json();
+
+      return data;
+    } catch (err) {
+      return {
+        status: "failed",
+      };
+    }
+  }
 
   return {
     getBalance,
     getTransactions,
     initiateTransaction,
+    getGasFee,
   };
 })();
